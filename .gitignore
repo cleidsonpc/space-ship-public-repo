@@ -1,0 +1,62 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea/
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### NodeJS ###
+# dependencies
+/space-ship-frontend/node_modules
+/space-ship-frontend/.pnp
+/space-ship-frontend/.pnp.js
+
+# testing
+/space-ship-frontend/coverage
+
+# production
+/space-ship-frontend/build
+
+# misc
+/space-ship-frontend/.DS_Store
+/space-ship-frontend/.env.local
+/space-ship-frontend/.env.development.local
+/space-ship-frontend/.env.test.local
+/space-ship-frontend/.env.production.local
+
+/space-ship-frontend/npm-debug.log*
+/space-ship-frontend/yarn-debug.log*
+/space-ship-frontend/yarn-error.log*

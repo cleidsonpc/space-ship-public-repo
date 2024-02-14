@@ -1,0 +1,15 @@
+.panel_container {
+    width: 100px;
+}
+
+.panel_actionTitle {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+}
+
+.panel_actionTrigger {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+}

@@ -1,0 +1,2 @@
+--INSERT INTO BRAND (id, name, description) VALUES (2, 'Brand 2', 'Added though sql file');
+--INSERT INTO DEVICE (id, name, description, brand_id) VALUES (1, 'Device 2', 'Added through sql file', 2);

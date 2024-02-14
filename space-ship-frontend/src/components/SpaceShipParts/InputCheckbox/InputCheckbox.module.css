@@ -1,0 +1,47 @@
+.inputCheckbox_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputCheckbox_container button {
+    border: 0px;
+    background-color: transparent;
+}
+
+.inputCheckbox_switch {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background-image: url("../../../../public/panel_switch_4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.inputCheckbox_switchOn {
+    display: flex;
+    transform: scaleY(1);
+}
+
+.inputCheckbox_switchOff {
+    display: flex;
+    transform: scaleY(-1);
+}
+
+.inputCheckbox_light {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background-image: url("../../../../public/lights_on_off_2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.inputCheckbox_lightOn {
+    display: flex;
+    background-position: 100%;
+}
+
+.inputCheckbox_lightOff {
+    display: flex;
+    background-position: 0%;
+}

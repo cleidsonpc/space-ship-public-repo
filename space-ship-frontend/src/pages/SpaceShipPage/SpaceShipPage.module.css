@@ -1,0 +1,98 @@
+/* PAGE */
+.sp_container {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    width: 1440px;
+    height: 800px;
+}
+
+.sp_pageTitle {
+    display: flex;
+    width:100%;
+    border: 1px blue solid;
+}
+
+.sp_pageFooter {
+    display: flex;
+    width: 100%;
+}
+
+/* SHIP */
+.sp_shipLogMessageContainer {
+    display: flex;
+    width: 200px;
+    height: 100px;
+}
+
+.sp_shipPanelContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../public/ship_panel_2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.sp_shipPanel {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    
+    align-items: flex-end;
+
+    width: 100%;
+    height: 45%;
+}
+
+.sp_shipPanelLeft {
+    width: 180px;
+    height: 180px;
+    margin: 0 0 90px 430px;
+    border: 1px green solid;
+}
+
+.sp_shipPanelMiddle {
+    display: flex;
+    width: 170px;
+    height: 210px;
+    margin: 0 10px 80px 20px;
+    border: 1px brown solid;
+}
+
+.sp_shipPanelRight {
+    display:flex;
+    flex-direction: column;
+    width: 240px;
+    height: 200px;
+    margin: 0 0 70px 0;
+    border: 1px grey solid;
+}
+
+.sp_shipPanelRightUp {
+    border: 1px yellow solid;
+}
+
+.sp_shipPanelRightDown {
+    border: 1px green solid;
+}
+
+.sp_background {
+    display: flex;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.sp_backgroundEngineOff {
+    background-image: url("../../../public/space_background.jpg");
+}
+
+.sp_backgroundEngineOn {
+    background-image: url("../../../public/space_background.gif");
+}
