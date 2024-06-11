@@ -44,15 +44,19 @@ public class PowerPlantService implements ServiceInterface<PowerPlantServiceDto,
         // Identifier fixed because there is only one power plant, for now.
         Optional<PowerPlantEntity> powerPlantEntityObtained = powerPlantRepository.findById(1L);
         if (powerPlantEntityObtained.isPresent()) {
-            PowerPlantEntity powerPlantEntityToUpdate = powerPlantEntityObtained.get();
-            if(powerPlantServiceDto.powerStatus() != null)
-                powerPlantEntityToUpdate.setPowerStatus(powerPlantServiceDto.powerStatus());
-            if(powerPlantServiceDto.energyAvailable() != null)
-                powerPlantEntityToUpdate.setEnergyAvailable(powerPlantServiceDto.energyAvailable());
+            PowerPlantEntity powerPlantEntityToUpdate = fillEntityUpdate(powerPlantEntityObtained.get(), powerPlantServiceDto);
             result = PowerPlantServiceMapper.entityToDto(powerPlantRepository.save(powerPlantEntityToUpdate));
         }
         return result;
     }
 
+    private PowerPlantEntity fillEntityUpdate(PowerPlantEntity newPowerPlantEntityUpdate, PowerPlantServiceDto powerPlantServiceDto) {
+        if(powerPlantServiceDto.powerStatus() != null)
+            newPowerPlantEntityUpdate.setPowerStatus(powerPlantServiceDto.powerStatus());
 
+        if(powerPlantServiceDto.energyAvailable() != null)
+            newPowerPlantEntityUpdate.setEnergyAvailable(powerPlantServiceDto.energyAvailable());
+
+        return newPowerPlantEntityUpdate;
+    }
 }

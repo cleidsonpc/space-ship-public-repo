@@ -45,15 +45,19 @@ public class EngineService implements ServiceInterface<EngineServiceDto, EngineS
         // Identifier fixed because there is only one engine, for now.
         Optional<EngineEntity> engineOptional = engineRepository.findById(1L);
         if(engineOptional.isPresent()) {
-            EngineEntity engineEntityToUpdate = engineOptional.get();
-            if(engineServiceDto.powerStatus() != null)
-                engineEntityToUpdate.setPowerStatus(engineServiceDto.powerStatus());
-            if(engineServiceDto.powerConsumption() != null)
-                engineEntityToUpdate.setPowerConsumption(engineServiceDto.powerConsumption());
-            result = EngineServiceMapper.entityToDto(
-                    engineRepository.save(engineEntityToUpdate));
+            EngineEntity engineEntityToUpdate = fillEntityUpdate(engineOptional.get(), engineServiceDto);
+            result = EngineServiceMapper.entityToDto(engineRepository.save(engineEntityToUpdate));
         }
         return result;
     }
 
+    private EngineEntity fillEntityUpdate(EngineEntity newEngineEntityUpdate, EngineServiceDto engineServiceDto) {
+        if(engineServiceDto.powerStatus() != null)
+            newEngineEntityUpdate.setPowerStatus(engineServiceDto.powerStatus());
+
+        if(engineServiceDto.powerConsumption() != null)
+            newEngineEntityUpdate.setPowerConsumption(engineServiceDto.powerConsumption());
+
+        return newEngineEntityUpdate;
+    }
 }

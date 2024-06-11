@@ -43,18 +43,24 @@ public class ShieldService implements ServiceInterface<ShieldServiceDto, ShieldS
 
         // Identifier fixed because there is only one shield, for now.
         Optional<ShieldEntity> shieldEntityOptional = shieldRepository.findById(1L);
+
         if (shieldEntityOptional.isPresent()) {
-            ShieldEntity shieldEntityToUpdate = shieldEntityOptional.get();
-            if(shieldServiceDto.powerStatus() != null)
-                shieldEntityToUpdate.setPowerStatus(shieldServiceDto.powerStatus());
-            if(shieldServiceDto.powerConsumption() != null)
-                shieldEntityToUpdate.setPowerConsumption(shieldServiceDto.powerConsumption());
-            if(shieldServiceDto.capacity() != null)
-                shieldEntityToUpdate.setCapacity(shieldServiceDto.capacity());
-            result = ShieldServiceMapper.entityToDto(
-                    shieldRepository.save(shieldEntityToUpdate));
+            ShieldEntity shieldEntityToUpdate = fillEntityUpdate(shieldEntityOptional.get(), shieldServiceDto);
+            result = ShieldServiceMapper.entityToDto(shieldRepository.save(shieldEntityToUpdate));
         }
         return result;
     }
 
+    private ShieldEntity fillEntityUpdate(ShieldEntity newShieldEntityUpdate, ShieldServiceDto shieldServiceDto) {
+        if(shieldServiceDto.powerStatus() != null)
+            newShieldEntityUpdate.setPowerStatus(shieldServiceDto.powerStatus());
+
+        if(shieldServiceDto.powerConsumption() != null)
+            newShieldEntityUpdate.setPowerConsumption(shieldServiceDto.powerConsumption());
+
+        if(shieldServiceDto.capacity() != null)
+            newShieldEntityUpdate.setCapacity(shieldServiceDto.capacity());
+
+        return newShieldEntityUpdate;
+    }
 }

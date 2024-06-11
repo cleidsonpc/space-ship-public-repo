@@ -7,16 +7,12 @@ import org.spaceship.backend.controller.dto.ShipStatusControllerDto;
 import org.spaceship.backend.controller.mapper.EngineMapper;
 import org.spaceship.backend.controller.mapper.PowerPlantMapper;
 import org.spaceship.backend.controller.mapper.ShieldMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.spaceship.backend.service.EngineService;
-import org.spaceship.backend.service.ManagementsService;
 import org.spaceship.backend.service.PowerPlantService;
 import org.spaceship.backend.service.ShieldService;
 import org.spaceship.backend.service.dto.EngineServiceDto;
 import org.spaceship.backend.service.dto.PowerPlantServiceDto;
 import org.spaceship.backend.service.dto.ShieldServiceDto;
-import org.spaceship.backend.threads.ShipManagementThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,42 +24,49 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 //@CrossOrigin(origins = "http://localhost:3000")
-public class ShipStatusController {
+public class ShipStatusController extends AbstractController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ShipStatusController.class);
     private final ShieldService shieldService;
     private final PowerPlantService powerPlantService;
     private final EngineService engineService;
 
+    /**
+     * Constructor for the ShipStatusController.
+     * @param shieldService The service for handling shield-related operations.
+     * @param powerPlantService The service for handling power plant-related operations.
+     * @param engineService The service for handling engine-related operations.
+     */
     @Autowired
     public ShipStatusController(ShieldService shieldService, PowerPlantService powerPlantService, EngineService engineService) {
         this.shieldService = shieldService;
         this.powerPlantService = powerPlantService;
         this.engineService = engineService;
-
-        ManagementsService managementsService = new ManagementsService();
-        ShipManagementThread shipManagementThread = new ShipManagementThread(managementsService);
-        Thread thread = new Thread(shipManagementThread);
-        thread.start();
     }
 
+    /**
+     * Endpoint for getting the status of the spaceship.
+     * This includes the status of the shield, power plant, and engine.
+     * @return A ResponseEntity containing a ShipStatusControllerDto with the status of the spaceship.
+     */
 //    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value="/ship_status", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ShipStatusControllerDto> getShipStatus() {
-//        LOG.info("getShipStatus performed.");
-
+        // Shield data
         ShieldServiceDto shield = shieldService.get();
-        PowerPlantServiceDto powerPlant = powerPlantService.get();
-        EngineServiceDto engine = engineService.get();
-
         ShieldControllerDto shieldControllerDto = ShieldMapper.serviceToController(shield);
+
+        // Power plant data
+        PowerPlantServiceDto powerPlant = powerPlantService.get();
         PowerPlantControllerDto powerPlantControllerDto = PowerPlantMapper.serviceToController(powerPlant);
+
+        // Engine data
+        EngineServiceDto engine = engineService.get();
         EngineControllerDto engineControllerDto = EngineMapper.serviceToController(engine);
 
         ShipStatusControllerDto shipStatusControllerDto = new ShipStatusControllerDto(powerPlantControllerDto, engineControllerDto, shieldControllerDto);
 
-        return ResponseEntity.ok().body(shipStatusControllerDto);
+        return successMessage(shipStatusControllerDto);
     }
 
 }

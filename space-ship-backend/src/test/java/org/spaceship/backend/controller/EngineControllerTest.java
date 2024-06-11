@@ -27,7 +27,19 @@ public class EngineControllerTest {
     }
 
     @Test
-    void shouldUpdatePowerPlantToDisabled() {
+    void shouldGetEngineStatus() {
+        EngineServiceDto engineServiceDto = new EngineServiceDto(Boolean.TRUE, 1000);
+        Mockito.when(engineService.get()).thenReturn(engineServiceDto);
+
+        ResponseEntity<EngineControllerDto> obtained = victim.getStatus();
+
+        Assertions.assertEquals(HttpStatus.OK, obtained.getStatusCode());
+        Assertions.assertNotNull(obtained.getBody());
+        assertEngineDto(obtained.getBody());
+    }
+
+    @Test
+    void shouldUpdateEngineToDisabled() {
         EngineServiceDto engineServiceDto = new EngineServiceDto(Boolean.TRUE, 1000);
         Mockito.when(engineService.update(Mockito.any())).thenReturn(engineServiceDto);
 
@@ -37,10 +49,10 @@ public class EngineControllerTest {
         Mockito.verify(engineService).update(Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, obtained.getStatusCode());
         Assertions.assertNotNull(obtained.getBody());
-        assertPowerPlantDto(obtained.getBody());
+        assertEngineDto(obtained.getBody());
     }
 
-    private void assertPowerPlantDto(EngineControllerDto obtained) {
+    private void assertEngineDto(EngineControllerDto obtained) {
         EngineControllerDto expected = new EngineControllerDto(Boolean.TRUE, 1000);
         Assertions.assertEquals(expected.powerStatus(), obtained.powerStatus());
         Assertions.assertEquals(expected.powerConsumption(), obtained.powerConsumption());

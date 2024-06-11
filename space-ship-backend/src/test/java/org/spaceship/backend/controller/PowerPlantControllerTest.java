@@ -1,5 +1,6 @@
 package org.spaceship.backend.controller;
 
+import org.spaceship.backend.controller.dto.EngineControllerDto;
 import org.spaceship.backend.controller.dto.PowerPlantControllerDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.spaceship.backend.service.PowerPlantService;
+import org.spaceship.backend.service.dto.EngineServiceDto;
 import org.spaceship.backend.service.dto.PowerPlantServiceDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,18 @@ public class PowerPlantControllerTest {
     @BeforeEach
     public void before() {
         this.victim = new PowerPlantController(powerPlantService);
+    }
+
+    @Test
+    void shouldGetPowerPlantStatus() {
+        PowerPlantServiceDto powerPlantServiceDto = new PowerPlantServiceDto(Boolean.TRUE, 5000);
+        Mockito.when(powerPlantService.get()).thenReturn(powerPlantServiceDto);
+
+        ResponseEntity<PowerPlantControllerDto> obtained = victim.getStatus();
+
+        Assertions.assertEquals(HttpStatus.OK, obtained.getStatusCode());
+        Assertions.assertNotNull(obtained.getBody());
+        assertPowerPlantDto(obtained.getBody());
     }
 
     @Test

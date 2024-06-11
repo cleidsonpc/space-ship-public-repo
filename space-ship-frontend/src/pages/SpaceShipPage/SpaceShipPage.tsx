@@ -108,15 +108,14 @@ const SpaceShipPage: React.FC = () => {
                                 setInfoDisplay={setOpenPanelInfoDisplay}
                                 powerPlantProps={powerPlantProps}
                                 engineProps={engineProps}
-                                shieldProps={shieldProps}
-                            />
+                                shieldProps={shieldProps} />
                         </div>
 
                         <div className={styles.sp_shipPanelMiddle} >
                             <PanelInfo openPanelInfoDisplay={openPanelInfoDisplay}
                                 powerPlantProps={powerPlantProps}
                                 engineProps={engineProps}
-                                shieldProps={shieldProps}/>
+                                shieldProps={shieldProps} />
                         </div>
 
                         <div className={styles.sp_shipPanelRight} >

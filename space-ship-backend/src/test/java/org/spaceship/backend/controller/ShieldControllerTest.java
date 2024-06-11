@@ -1,5 +1,6 @@
 package org.spaceship.backend.controller;
 
+import org.spaceship.backend.controller.dto.EngineControllerDto;
 import org.spaceship.backend.controller.dto.ShieldControllerDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.spaceship.backend.service.ShieldService;
+import org.spaceship.backend.service.dto.EngineServiceDto;
 import org.spaceship.backend.service.dto.ShieldServiceDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,18 @@ public class ShieldControllerTest {
     @BeforeEach
     public void before() {
         this.victim = new ShieldController(shieldService);
+    }
+
+    @Test
+    void shouldGetEngineStatus() {
+        ShieldServiceDto shieldServiceDto = new ShieldServiceDto(Boolean.TRUE, 1000, 5000);
+        Mockito.when(shieldService.get()).thenReturn(shieldServiceDto);
+
+        ResponseEntity<ShieldControllerDto> obtained = victim.getStatus();
+
+        Assertions.assertEquals(HttpStatus.OK, obtained.getStatusCode());
+        Assertions.assertNotNull(obtained.getBody());
+        assertShieldDto(obtained.getBody());
     }
 
     @Test
